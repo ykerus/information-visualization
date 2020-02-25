@@ -1,0 +1,12 @@
+body {
+  background-color: white;
+}
+
+.text {
+    font-family: verdana;
+    color: steelblue;
+}
+
+p {
+    font-weight: bold;
+}
