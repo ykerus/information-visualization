@@ -3,8 +3,8 @@ var margin = 20;
 
 function count(array, item) {
 	var count = 0;
-	for (var i=0; i < array.length; i++) 
-    	if (array[i]==item) 
+	for (var i=0; i < array.length; i++)
+    	if (array[i]==item)
         	count++;
     return count;
 }//count
@@ -18,27 +18,27 @@ function countGenders(data) {
 }//countGenders
 
 function genderBar (selection, data) {
-    
+
     var genderCounts = countGenders(data);
-    
+
     console.log(genderCounts); //
-    
+
     var heightScale = d3.scale.linear()
 	                   .domain([0, data.predicted_gender.length])
 	                   .range([0, height-2*margin]);
-    
-    
+
+
     var bars = selection.selectAll("rect")
                .data(Object.entries(genderCounts));
-    
+
     var labels = selection.selectAll("text")
                .data(Object.entries(genderCounts));
-    
+
     bars.enter().append("rect");
     labels.enter().append("text");
-    
+
     //TODO: combine into one group instead of two
-    
+
     var stacked = 0;
     var barAttributes = selection.selectAll("rect")
                         .attr("x", width/2)
@@ -49,12 +49,12 @@ function genderBar (selection, data) {
                         .attr("ry", 2)
                         .transition()
                         .duration(750)
-                        .attr("height", function(d) {return heightScale(d[1])})   
+                        .attr("height", function(d) {return heightScale(d[1])})
                         .attr("y", function(d) {
                             stacked += heightScale(d[1]);
                             return height-margin-stacked;
                         });
-    
+
     var stacked = 0;
     var barLabels = selection.selectAll("text")
                     .attr("x", (width+barWidth)/2)
@@ -68,6 +68,6 @@ function genderBar (selection, data) {
                     .attr("y", function(d) {
                             stacked += heightScale(d[1]);
                             return height-margin - stacked + heightScale(d[1])/2 + 5;
-                    }); 
-    
+                    });
+
 }//genderBar
