@@ -19,27 +19,42 @@ var svgContainer = d3.select("body").append("svg")
 
 var genderGroup = svgContainer.append("g");
 
-d3.json("test_data.json", function(data) {
-     
-    selection1 = getPeriod(data, 0, 1500);
-    selection2 = getPeriod(data, 0, 1700);
-    selection3 = getPeriod(data, 0, 1800);
-    selection4 = getPeriod(data, 0, 1950);
-    selection5 = getPeriod(data, 0, 2020);
+d3.json("test_data.json").then(function(data) {
     
-    genderBar(genderGroup, selection1);
+  data.creation_year = data.creation_year.map((x)=>parseInt(x));
     
-    setTimeout(() => {
-        genderBar(genderGroup, selection2);
-    }, 1000);
-    setTimeout(() => {
-        genderBar(genderGroup, selection3);
-    }, 2000);
-    setTimeout(() => {
-        genderBar(genderGroup, selection4);
-    }, 3000);
-    setTimeout(() => {
-        genderBar(genderGroup, selection5);
-    }, 4000);
-   
-})
+  var sliderRange = d3
+    .sliderBottom()
+    .min(d3.min(data.creation_year))
+    .max(d3.max(data.creation_year))
+    .width(440)
+    .tickFormat(d3.format('.0f'))
+    .ticks(5)
+    .default([d3.min(data.creation_year), d3.max(data.creation_year)])
+    .fill('#2196f3')
+    .on('onchange', val => {
+      d3.select('p#value-range').text(val.map(d3.format('.0f')).join(' - '));
+      selection = getPeriod(data, sliderRange.value()[0], sliderRange.value()[1]);
+      genderBar(genderGroup, selection);
+    });
+
+  var gRange = d3
+    .select('div#slider-range')
+    .append('svg')
+    .attr('width', width)
+    .attr('height', 100)
+    .append('g')
+    .attr('transform', 'translate(30,30)');
+
+  gRange.call(sliderRange);
+
+  d3.select('p#value-range').text(
+    sliderRange
+      .value()
+      .map(d3.format('.0f'))
+      .join('-')
+  );
+    
+    genderBar(genderGroup, data);
+  
+});

@@ -23,7 +23,7 @@ function genderBar (selection, data) {
 
     console.log(genderCounts); //
 
-    var heightScale = d3.scale.linear()
+    var heightScale = d3.scaleLinear()
 	                   .domain([0, data.predicted_gender.length])
 	                   .range([0, height-2*margin]);
 
