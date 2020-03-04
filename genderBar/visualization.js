@@ -2,9 +2,9 @@ function getPeriod(d, from, to) {
 	newData = {}
     for (var key in d)
     	newData[key] = [];
-    for (var i=0; i<d.creation_year.length; i++) 
-    	if (d.creation_year[i] >= from && d.creation_year[i] <= to) 
-       		for (var key in d) 
+    for (var i=0; i<d.creation_year.length; i++)
+    	if (d.creation_year[i] >= from && d.creation_year[i] <= to)
+       		for (var key in d)
             	newData[key].push(d[key][i])
     return newData;
 }//getPeriod
@@ -21,9 +21,9 @@ var genderGroup = svgContainer.append("g");
 var bubbleChartGroup = svgContainer.append("g");
 
 d3.json("test_data.json").then(function(data) {
-    
+
   data.creation_year = data.creation_year.map((x)=>parseInt(x));
-    
+
   var sliderRange = d3
     .sliderBottom()
     .min(d3.min(data.creation_year))
@@ -56,9 +56,9 @@ d3.json("test_data.json").then(function(data) {
       .map(d3.format('.0f'))
       .join('-')
   );
-    
+
     genderBar(genderGroup, data);
     bubbleChart(bubbleChartGroup, data);
 
-  
+
 });
