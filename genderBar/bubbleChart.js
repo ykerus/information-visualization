@@ -125,15 +125,14 @@ function bubbleChart (selection, data) {
 	                   .domain([0, radius.max()])
 	                   .range([0, 60]);
 
-    console.log(radiusScale)
     var circleAttributes = selection.selectAll("circle")
                         .attr("cx", function(d,i) {
-                                numb = 120*i+350
-                                console.log('x', numb.toString())
                                 return (120*i+350);
                         })
                         .attr("cy", 100)
                         .attr("stroke", "black")
+                        .transition()
+                        .duration(750)
                         .attr("r", function(d, i){
                                 return radiusScale(radius[i])
                         })
