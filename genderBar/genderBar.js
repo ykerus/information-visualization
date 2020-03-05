@@ -41,7 +41,7 @@ function genderBar (selection, data) {
 
     var stacked = 0;
     var barAttributes = selection.selectAll("rect")
-                        .attr("x", width/2)
+                        .attr("x", width/20)
                         .attr("fill", function(d) {return gColors[d[0]]})
                         .attr("width", barWidth)
                         .attr("stroke","black")
@@ -57,9 +57,9 @@ function genderBar (selection, data) {
 
     var stacked = 0;
     var barLabels = selection.selectAll("text")
-                    .attr("x", (width+barWidth)/2)
+                    .attr("x", (width+barWidth)/14)
                     .attr("fill", "black")
-                    .attr("font-size","0.7em")
+                    .attr("font-size","0.65em")
                     .attr("font-family", "verdana")
                     .attr("text-anchor","middle")
                     .text(function(d) {return d[0]})
