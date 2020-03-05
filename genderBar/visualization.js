@@ -20,7 +20,7 @@ var svgContainer = d3.select("body").append("svg")
 var genderGroup = svgContainer.append("g");
 var bubbleChartGroup = svgContainer.append("g");
 
-d3.json("test_data.json").then(function(data) {
+d3.json("data.json").then(function(data) {
 
   data.creation_year = data.creation_year.map((x)=>parseInt(x));
 
@@ -37,7 +37,7 @@ d3.json("test_data.json").then(function(data) {
       d3.select('p#value-range').text(val.map(d3.format('.0f')).join(' - '));
       selection = getPeriod(data, sliderRange.value()[0], sliderRange.value()[1]);
       genderBar(genderGroup, selection);
-      bubbleChart(bubbleChartGroup, selection);
+      bubbleChart(bubbleChartGroup, selection, "collection_origins");
     });
 
   var gRange = d3
@@ -58,7 +58,7 @@ d3.json("test_data.json").then(function(data) {
   );
 
     genderBar(genderGroup, data);
-    bubbleChart(bubbleChartGroup, data);
+    bubbleChart(bubbleChartGroup, data, "collection_origins");
 
 
 });

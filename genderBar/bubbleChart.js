@@ -8,6 +8,11 @@ function count(array, item) {
     return count;
 }//count
 
+// remove duplicates
+function removeDuplicates(array) {
+  return array.filter((a, b) => array.indexOf(a) === b)
+};
+
 function countGenders(data) {
 	var genderCounts = {};
     genderCounts["UNKNOWN"] = count(data.predicted_gender, "unknown");
@@ -18,6 +23,9 @@ function countGenders(data) {
 
 // change this that it is applicable to all settings (not only origins)
 function countOrigins(data){
+//    var new_list = removeDuplicates(data);
+//    console.log(new_list)
+//    console.log('haloo')
     var originCount = {};
     originCount["Web Gallery of Art '17"] = count(data, "Web Gallery of Art '17");
     originCount["WikiArts 17"] = count(data, "WikiArts 17");
@@ -27,15 +35,14 @@ function countOrigins(data){
     return originCount
 }//countOrigins
 
-// remove duplicates
-function removeDuplicates(array) {
-  return array.filter((a, b) => array.indexOf(a) === b)
-};
 
 // change this that it is applicable to all settings (not only origins)
 function selectGenderData(data, variable){
     if (variable == "collection_origins"){
         var dataArray = data.collection_origins
+    }
+    if (variable == "artwork_type"){
+        var dataArray = data.artwork_type
     }
     var genderDataSelected = {};
     var indexesMale = [], i = -1;
@@ -49,6 +56,7 @@ function selectGenderData(data, variable){
     while ((j = arr.indexOf(female, j+1)) !=-1){
         indexesFemale.push(j);
     }
+
     var resultArrMale = [];
     for (var i = 0; i < indexesMale.length; i++)
         resultArrMale.push(dataArray[indexesMale[i]]);
@@ -80,12 +88,19 @@ function getRadius(value){
 }//getRadius
 
 
-function bubbleChart (selection, data) {
+function bubbleChart (selection, data, choice_of_variable) {
     var genderCounts = countGenders(data);
-    var results = selectGenderData(data, "collection_origins");
-    var originMaleCounts = countOrigins(results[0]);
-    var originFemaleCounts = countOrigins(results[1]);
-    var threeLists = creatingThreeList(originMaleCounts, originFemaleCounts);
+    var results = selectGenderData(data, choice_of_variable);
+//    var resultsSecond = selectGenderData(data, "artwork_type");
+    console.log('resilts',results)
+
+    var MaleCounts = countOrigins(results[0]);
+    var FemaleCounts = countOrigins(results[1]);
+    console.log('counts',FemaleCounts)
+//    var artworkMaleCounts = countOrigins(resultsSecond[0]);
+//    var artworkFemaleCounts = countOrigins(resultsSecond[1]);
+
+    var threeLists = creatingThreeList(MaleCounts, FemaleCounts);
     var allData = threeLists[0];
     var femaleData = threeLists[2];
     console.log('allData', allData)
@@ -109,7 +124,7 @@ function bubbleChart (selection, data) {
         .data(Object.entries(allData));
 
     var labels = selection.selectAll("text")
-               .data(Object.entries(originMaleCounts));
+               .data(Object.entries(MaleCounts));
 
     var radius = getRadius(allData);
 
