@@ -20,7 +20,7 @@ var svgContainer = d3.select("body").append("svg")
 var genderGroup = svgContainer.append("g");
 var bubbleChartGroup = svgContainer.append("g");
 
-d3.json("test_data.json").then(function(data) {
+d3.json("data.json").then(function(data) {
     
   data.creation_year = data.creation_year.map((x)=>parseInt(x));
     

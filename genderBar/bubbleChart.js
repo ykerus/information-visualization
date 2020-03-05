@@ -53,7 +53,6 @@ function selectGenderData(data, variable){
     for (var i = 0; i < indexesMale.length; i++)
         resultArrMale.push(dataArray[indexesMale[i]]);
     var lengthArrMale = resultArrMale.length;
-//    console.log(lengthArrMale)
     var resultArrFemale = [];
     for(var i = 0; i<indexesFemale.length; i++)
         resultArrFemale.push(dataArray[indexesFemale[i]]);
@@ -75,7 +74,7 @@ function creatingThreeList(dataMale,dataFemale){
 function getRadius(value){
     radius = []
     for (var i = 0; i<value.length; i ++){
-            radius.push(value[i]/500)
+            radius.push(Math.sqrt(value[i]))
     }
     return radius
 }//getRadius
@@ -127,7 +126,7 @@ function bubbleChart (selection, data) {
 
     var circleAttributes = selection.selectAll("circle")
                         .attr("cx", function(d,i) {
-                                return (120*i+350);
+                                return (120*i+200);
                         })
                         .attr("cy", 100)
                         .attr("stroke", "black")
@@ -140,16 +139,16 @@ function bubbleChart (selection, data) {
                                 return "url(#grad"+i.toString()+")"})
 
     var circleLabels = selection.selectAll("text")
-                        .attr("y", 100)
+                        .attr("y", 200)
                         .attr("fill", "black")
-                        .attr("font-size","0.3em")
+                        .attr("font-size","0.7em")
                         .attr("font-family", "verdana")
                         .attr("text-anchor","middle")
                         .text(function(d) {return d[0]})
                         .transition()
                         .duration(750)
                         .attr("x", function(d, i) {
-                                return (i*120+350);
+                                return (i*120+200);
                         });
 
 }//bubbleChart
