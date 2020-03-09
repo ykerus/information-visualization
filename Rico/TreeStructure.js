@@ -17,27 +17,15 @@ function createTreeStructure(data, category) {
     var categoryTree = {};
     var categories = []
     categoryTree.categories = categories;
-    document.write(JSON.stringify(categoryTree));
+    //document.write(JSON.stringify(categoryTree));
     for (var key in dictOfCounts) {
         var object = {
-          "category": key,
-          "count": dictOfCounts[key]
+          "Category": key,
+          "Count": dictOfCounts[key]
         }
        categoryTree.categories.push(object);
     }
-    document.write(JSON.stringify(categoryTree));
-
-    var manager = "Jane Doe";
-    categoryTree.categories[0].manager = manager;
-    console.log(sitePersonel);
-
-
-
-    return root
+    //document.write(JSON.stringify(categoryTree));
+    //console.log(sitePersonel);
+    return categoryTree
 }
-
-d3.json("data.json", function(data) {
-    var dataTree = createTreeStructure(data, 'artwork_type');
-
-    //createTreeStructure(data, 'artwork_type')
-})
