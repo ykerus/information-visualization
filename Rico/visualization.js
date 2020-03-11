@@ -15,7 +15,9 @@ var width = 1500,
 
 var svg = d3.select("body").append("svg")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height)
+        .append("g")
+            .attr("transform", "translate(50, 50)");
 console.log("Svg created");
 // const svg = d3.create("svg")
 //       .attr("viewBox", [0, 0, width, height])
