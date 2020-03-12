@@ -17,9 +17,10 @@
       <div id="blackload"></div>
       <div id="loading"></div>
     </div>
-
     <div class="background"></div>
-    <H2 class="text">OmniArt Visualization</H2>
+
+    <img id=logo src="imno_logo.png"></img>
+    <button id="help">Help</button>
 
     <div class="container">
       <h3 class="text">Time Period</h3>
@@ -36,20 +37,19 @@
     <script src="visualization.js"></script>
     <script src="background.js"></script>
     <script>
-      var loadviv = new Vivus("loading", {type: "delayed", duration: 200, file: "omniart.svg"}, function(loadviv){
-        console.log("Hello")
+      var loadviv = new Vivus("loading", {type: "delayed", duration: 200, file: "omniart2.svg"}, function(loadviv){
         loadviv.play(loadviv.getStatus() === 'end' ? -1 : 1)
+      });
 
-      })
-
-      setTimeout(fadeout, 9000);
+      setTimeout(fadeout, 8000);
 
       function fadeout(){
-        $("#allload").fadeOut(1500);
+        $("#allload").fadeOut(2000, function(){$("#allload").remove();});
       }
       // window.addEventListener("load", function(){
-      //   $("#loading").fadeOut(2000);
-      // })
+      //   $("#allload").fadeOut(2000, function(){
+      //     $(this).remove();
+      //   });
     </script>
 
 </body>
