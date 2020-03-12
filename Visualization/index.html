@@ -5,12 +5,20 @@
     <title>OmniArt</title>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://unpkg.com/d3-simple-slider"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vivus/0.3.2/vivus.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="style.css">
 
 </head>
 
 
 <body>
+    <div id="allload">
+      <div id="blackload"></div>
+      <div id="loading"></div>
+    </div>
+
+    <div class="background"></div>
     <H2 class="text">OmniArt Visualization</H2>
 
     <div class="container">
@@ -20,12 +28,30 @@
         <div class="col-sm"><div id="slider-range"></div></div>
       </div>
     </div>
-    
+
     <script src="timeSlider.js"></script>
     <script src="cultureBar.js"></script>
     <script src="genderBar.js"></script>
     <script src="bubbleChart.js"></script>
     <script src="visualization.js"></script>
+    <script src="background.js"></script>
+    <script>
+      var loadviv = new Vivus("loading", {type: "delayed", duration: 200, file: "omniart.svg"}, function(loadviv){
+        console.log("Hello")
+        loadviv.play(loadviv.getStatus() === 'end' ? -1 : 1)
+
+      })
+
+      setTimeout(fadeout, 9000);
+
+      function fadeout(){
+        $("#allload").fadeOut(1500);
+      }
+      // window.addEventListener("load", function(){
+      //   $("#loading").fadeOut(2000);
+      // })
+    </script>
+
 </body>
 
 </html>

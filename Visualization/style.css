@@ -1,5 +1,6 @@
 body {
   background-color: white;
+  overflow: hidden;
 }
 
 .text {
@@ -9,4 +10,44 @@ body {
 
 p {
     font-weight: bold;
+}
+
+.background{
+  overflow: hidden;
+  background-color: black;
+  width: 2100px;
+  height: 1200px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1000;
+}
+
+.bgimg{
+  filter: brightness(30%);
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  right: 0;
+  margin: 0;
+  padding: 0;
+}
+
+#blackload{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 1000
+}
+
+#loading svg{
+  position: absolute;
+  top: calc(50% - 100px);
+  left: calc(50% - 250px);
+  width: 500px;
+  height: 200px;
+  z-index: 1001
 }
