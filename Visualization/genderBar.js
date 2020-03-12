@@ -36,7 +36,6 @@ function genderBar (selection, data) {
     bars.enter().append("rect");
     labels.enter().append("text");
     
-    var gSelectBar = genderSelectGroup.selectAll("rect").data([0])
     
     if (gSelected) {
         gSelectBar.enter().append("rect")

@@ -36,8 +36,6 @@ function cultureBar (selection, data) {
     bars.enter().append("rect");
     labels.enter().append("text");
     
-    var cSelectBar = cultureSelectGroup.selectAll("rect").data([0])
-    
     if (cSelected) {
         cSelectBar.enter().append("rect")
             .attr("x", width - 3*barWidth/2 - cSelMargin)

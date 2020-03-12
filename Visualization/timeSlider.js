@@ -28,6 +28,8 @@ function updateSlider(selection, props, data) {
                 selection.call(slider);
             }//if
             else {
+                cultureSelectGroup.selectAll("rect").remove();
+                genderSelectGroup.selectAll("rect").remove();
                 genderBar(genderGroup, dataSelection);
                 cultureBar(cultureGroup, dataSelection);
 //                bubbleChart(bubbleChartGroup, dataSelection);
