@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 (unknown)"
+   sodipodi:docname="omniart.svg">
+  <style
+     id="style2284">
+.loader {
+    stroke-opacity:1;
+    fill-opacity:0;
+    stroke:#00ff00;
+    stroke-miterlimit:4;
+    stroke-dasharray:none;
+    stroke-width:0.48256972;
+    fill:#fffff9;
+}</style>
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient4576"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#113fff;stop-opacity:1;"
+         offset="0"
+         id="stop4574" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4576"
+       id="linearGradient4578"
+       x1="-400.0311"
+       y1="100.0744"
+       x2="-271.25461"
+       y2="100.0744"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.9247043,0,0,0.80268253,171.33443,20.844984)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.31493301"
+     inkscape:cx="-251.38088"
+     inkscape:cy="500.30507"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1867"
+     inkscape:window-height="1016"
+     inkscape:window-x="53"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       id="rect4522"
+       width="690.64404"
+       height="349.72385"
+       x="-254.65735"
+       y="-42.975487"
+       style="stroke-width:0.24114354" />
+    <path
+       style="fill:#fffff9;fill-opacity:0;stroke:url(#linearGradient4578);stroke-width:1.72307181;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -181.67694,89.947357 H 225.85898 V 196.13557 h -407.53592 z"
+       id="rect4572" />
+    <path
+       style="fill:#fffff9;fill-opacity:0;stroke:#ff0000;stroke-width:1.70102167;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -122.99201,68.822303 H 258.19955 V 240.98793 h -381.19156 z"
+       id="rect4584"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#fffff9;fill-opacity:0;stroke:#00ff00;stroke-width:1.72574663;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -95.727157,25.522584 H 300.1003 V 215.18045 H -95.727157 Z"
+       id="rect4586"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:67.16776276px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.67919409"
+       x="-62.418575"
+       y="171.32089"
+       id="text4594"
+       transform="scale(1.0689107,0.93553187)"><tspan
+         sodipodi:role="line"
+         id="tspan4592"
+         x="-62.418575"
+         y="171.32089"
+         style="fill:#ffffff;stroke-width:1.67919409">OmniArt</tspan></text>
+    <path
+       style="fill:#fffff9;fill-opacity:0;stroke:#ffff00;stroke-width:1.28931975;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -78.509335,46.36941 H 344.90422 V 185.35895 H -78.509335 Z"
+       id="rect4586-3"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>

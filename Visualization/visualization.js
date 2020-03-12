@@ -29,4 +29,5 @@ d3.json("data.json").then(function(data) {
     genderBar(genderGroup, data);
     cultureBar(cultureGroup, data);
     bubbleChart(bubbleChartGroup, data);
+		loadBackground(data)
 });

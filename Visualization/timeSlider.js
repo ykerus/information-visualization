@@ -8,30 +8,31 @@ function getSlider(props) {
             .ticks(5)
             .tickFormat(d3.format('.0f'))
             .default([props.pointMin, props.pointMax])
-            .fill('#2196f3'); 
+            .fill('#2196f3');
 }//getSlider
 
 function updateSlider(selection, props, data) {
-    var prevMin = props.showMin,  
+    var prevMin = props.showMin,
         changeSlider = false;
     slider = getSlider(props)
     slider
         .on("onchange", val => {
             d3.select('p#value-range').text(val.map(d3.format('.0f')).join(' - '));
         })
-        .on('end', val => {  
+        .on('end', val => {
             dataSelection = getPeriod(data, val[0], val[1]);
             if (dataSelection.creation_year.length == 0) {
                 val[0] = props.pointMin;
                 val[1] = props.pointMax;
                 slider.value([props.pointMin, props.pointMax]);
-                selection.call(slider); 
+                selection.call(slider);
             }//if
             else {
                 genderBar(genderGroup, dataSelection);
                 cultureBar(cultureGroup, dataSelection);
                 bubbleChart(bubbleChartGroup, dataSelection);
-                
+                loadBackground(dataSelection);
+
                 if (Math.abs(val[1]-val[0]) <= 500 && Math.abs(props.showMax-props.showMin) > 1000) {
                     changeSlider = true;
                     props.showMin = val[0] - 50;
@@ -39,23 +40,23 @@ function updateSlider(selection, props, data) {
                     if (props.showMin < ABSMIN) props.showMin=ABSMIN;
                     if (props.showMax > ABSMAX) props.showMax=ABSMAX;
                 }//if
-                else if (Math.abs(props.showMax-props.showMin) < 1000 && 
+                else if (Math.abs(props.showMax-props.showMin) < 1000 &&
                          val[0] == props.showMin && val[1] == props.showMax) {
                     changeSlider = true
                     props.showMin = ABSMIN;
                     props.showMax = ABSMAX;
                 }//else if
-                
+
                 props.pointMin = val[0];
                 props.pointMax = val[1];
 
                 if (changeSlider) {
-                    
+
                     selection.transition().attr('transform', 'translate(250,20)')
                              .call(slider.value([prevMin, prevMin]).width(0));
                     selection.transition().delay(200).remove();
                     selection = d3.select("svg").append("g");
-                    setTimeout(() => {         
+                    setTimeout(() => {
                         slider = updateSlider(selection, props, data);
                         selection.attr('transform', 'translate(250,20)').call(slider.width(0));
                         selection.transition().attr('transform', 'translate(30,20)')
@@ -76,16 +77,16 @@ function timeSlider(selection, data) {
     ABSMIN = d3.min(data.creation_year);
     ABSMAX = d3.max(data.creation_year);
     var props = { pointMin: ABSMIN, pointMax: ABSMAX,
-                  showMin:  ABSMIN, showMax:  ABSMAX } 
+                  showMin:  ABSMIN, showMax:  ABSMAX }
     var slider = updateSlider(selection, props, data);
-    
+
     selection
         .attr('transform', 'translate(250,20)')
         .call(slider.width(0))
         .transition()
         .attr('transform', 'translate(30,20)')
         .call(slider.width(width-2*30));
-    
+
     d3.select('p#value-range').text(
         slider
           .value()
