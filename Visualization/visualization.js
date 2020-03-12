@@ -21,6 +21,7 @@ var sliderGroup = svgContainer.append("g");
 var genderGroup = svgContainer.append("g");
 var cultureGroup = svgContainer.append("g");
 var bubbleChartGroup = svgContainer.append("g");
+var donutChartGroup = svgContainer.append("g");
 
 d3.json("data.json").then(function(data) {
     data.creation_year = data.creation_year.map((x)=>parseInt(x));
@@ -28,6 +29,7 @@ d3.json("data.json").then(function(data) {
     timeSlider(sliderGroup, data);
     genderBar(genderGroup, data);
     cultureBar(cultureGroup, data);
-    bubbleChart(bubbleChartGroup, data);
+//    bubbleChart(bubbleChartGroup, data);
+    donutChart(donutChartGroup, data);
 		loadBackground(data)
 });
