@@ -19,8 +19,23 @@
     </div>
     <div class="background"></div>
 
-    <img id=logo src="imno_logo.png"></img>
+    <h1 id=logo >OmniArt</h1>
     <button id="help">Help</button>
+
+    <div id="HelpModal" class="modal">
+      <div class="help-modal-content">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+          <h2>Welcome to our OmniArt visualizations</h2>
+        </div>
+        <div class="modal-body">
+          <p>The goal of this web application is to show the ration between male and female artists among the artist in the dataset and to show
+          the ratio between western and non-western art among art pieces in the dataset</p>
+          <p>In the time line slider, we can adjust the period</p>
+        </div>
+      </div>
+
+    </div>
 
     <div class="container">
       <h3 class="text">Time Period</h3>
@@ -36,21 +51,8 @@
     <script src="bubbleChart.js"></script>
     <script src="visualization.js"></script>
     <script src="background.js"></script>
-    <script>
-      var loadviv = new Vivus("loading", {type: "delayed", duration: 200, file: "omniart2.svg"}, function(loadviv){
-        loadviv.play(loadviv.getStatus() === 'end' ? -1 : 1)
-      });
-
-      setTimeout(fadeout, 8000);
-
-      function fadeout(){
-        $("#allload").fadeOut(2000, function(){$("#allload").remove();});
-      }
-      // window.addEventListener("load", function(){
-      //   $("#allload").fadeOut(2000, function(){
-      //     $(this).remove();
-      //   });
-    </script>
+    <script src="loadscreen.js"></script>
+    <script src="helpscreen.js"></script>
 
 </body>
 
