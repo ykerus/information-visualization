@@ -22,6 +22,10 @@ var genderGroup = svgContainer.append("g");
 var cultureGroup = svgContainer.append("g");
 var bubbleChartGroup = svgContainer.append("g");
 var donutChartGroup = svgContainer.append("g");
+var genderSelectGroup = svgContainer.append("g");
+var cultureSelectGroup = svgContainer.append("g");
+var gSelected = true;
+var cSelected = false;
 
 d3.json("data.json").then(function(data) {
     data.creation_year = data.creation_year.map((x)=>parseInt(x));
@@ -30,6 +34,6 @@ d3.json("data.json").then(function(data) {
     genderBar(genderGroup, data);
     cultureBar(cultureGroup, data);
 //    bubbleChart(bubbleChartGroup, data);
-    donutChart(donutChartGroup, data);
-		loadBackground(data)
+//    donutChart(donutChartGroup, data);
+    loadBackground(data);
 });
