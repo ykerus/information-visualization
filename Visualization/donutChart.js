@@ -9,11 +9,11 @@ function count(array, item) {
 }//count
 
 function countGenders(data) {
-	var genderCounts = {};
-    genderCounts["UNKNOWN"] = count(data.predicted_gender, "unknown");
-    genderCounts["MALE"] = count(data.predicted_gender, "male");
-    genderCounts["FEMALE"] = count(data.predicted_gender, "female");
-    return genderCounts;
+	var countsGender = {};
+    countsGender["UNKNOWN"] = count(data.predicted_gender, "unknown");
+    countsGender["MALE"] = count(data.predicted_gender, "male");
+    countsGender["FEMALE"] = count(data.predicted_gender, "female");
+    return countsGender;
 }//countGenders
 
 // change this that it is applicable to all settings (not only origins)
@@ -105,14 +105,14 @@ function getRadius(value){
 
 function donutChart(selection, data){
     console.log("in donutChart function")
-    var genderCounts = countGenders(data);
-    var results = selectGenderData(data, "collection_origins");
-    var originMaleCounts = countOrigins(results[0]);
-    var originFemaleCounts = countOrigins(results[1]);
+    var countsGender = countGenders(data);
+    var resultsGender = selectGenderData(data, "collection_origins");
+    var originMaleCounts = countOrigins(resultsGender[0]);
+    var originFemaleCounts = countOrigins(resultsGender[1]);
     var threeLists = creatingThreeList(originMaleCounts, originFemaleCounts);
     var allData = threeLists[0];
     var femaleData = threeLists[2];
-    var countOriginData = countOrigins2(results)
+    var countOriginData = countOrigins2(resultsGender)
 
     console.log('opnieuw in DonutChart',countOriginData)
 
