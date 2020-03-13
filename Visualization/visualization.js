@@ -26,7 +26,7 @@ var genderSelectGroup = svgContainer.append("g");
 var cultureSelectGroup = svgContainer.append("g");
 var gSelectBar = genderSelectGroup.selectAll("rect").data([0]);
 var cSelectBar = cultureSelectGroup.selectAll("rect").data([0]);
-var gSelected = true;
+var gSelected = false;
 var cSelected = false;
 
 d3.json("data.json").then(function(data) {

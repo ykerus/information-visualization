@@ -1,4 +1,7 @@
 var gColors = {FEMALE:"#FCD965", MALE:"#A4C2F4", UNKNOWN:"#D9D9D9"};
+var cColors = {"NON-WESTERN":"#B6D7A8", WESTERN:"#DD7D6B", UNKNOWN:"#D9D9D9", SELECTHOVER:"white"};
+
+
 var margin = 20;
 function count(array, item) {
 	var count = 0;
@@ -15,6 +18,14 @@ function countGenders(data) {
     countsGender["FEMALE"] = count(data.predicted_gender, "female");
     return countsGender;
 }//countGenders
+
+function countCultures(data) {
+	var cultureCounts = {};
+    cultureCounts["UNKNOWN"] = count(data.culture, "unknown");
+    cultureCounts["WESTERN"] = count(data.culture, "western");
+    cultureCounts["NON-WESTERN"] = count(data.culture, "non-western");
+    return cultureCounts;
+}//countCultures
 
 // change this that it is applicable to all settings (not only origins)
 function countOrigins(data){
@@ -56,6 +67,7 @@ function removeDuplicates(array) {
 
 // change this that it is applicable to all settings (not only origins)
 function selectGenderData(data, variable){
+    console.log('deez data gaat erin',data)
     if (variable == "collection_origins"){
         var dataArray = data.collection_origins
     }
@@ -80,6 +92,36 @@ function selectGenderData(data, variable){
     for(var i = 0; i<indexesFemale.length; i++)
         resultArrFemale.push(dataArray[indexesFemale[i]]);
     return [resultArrMale, resultArrFemale];
+}//selectGenderData
+
+
+// change this that it is applicable to all settings (not only origins)
+function selectCultureData(data, variable){
+    console.log('deez data gaat erin',data)
+    if (variable == "collection_origins"){
+        var dataArray = data.collection_origins
+    }
+    var cultureDataSelected = {};
+    var indexesWestern = [], i = -1;
+    var indexesNonWestern = [], j = -1;
+    var arr = data.culture;
+    var western = "western";
+    var nonWestern = "non-western";
+    while ((i = arr.indexOf(western, i+1)) !=-1){
+        indexesWestern.push(i);
+    }
+    while ((j = arr.indexOf(nonWestern, j+1)) !=-1){
+        indexesNonWestern.push(j);
+    }
+    var resultArrWestern = [];
+    for (var i = 0; i < indexesWestern.length; i++)
+        resultArrWestern.push(dataArray[indexesWestern[i]]);
+    var lengthArrWestern = resultArrWestern.length;
+//    console.log(lengthArrMale)
+    var resultArrNonWestern = [];
+    for(var i = 0; i<indexesNonWestern.length; i++)
+        resultArrNonWestern.push(dataArray[indexesNonWestern[i]]);
+    return [lengthArrWestern, resultArrNonWestern];
 }//selectGenderData
 
 function creatingThreeList(dataMale,dataFemale){
@@ -109,27 +151,46 @@ function donutChart(selection, data, selected){
 
     if(selected){
         console.log('yes its gender')
+        var countsGender = countGenders(data);
+        var countsGender = countGenders(data);
+        var resultsGender = selectGenderData(data, "collection_origins");
+        var originMaleCounts = countOrigins(resultsGender[0]);
+        var originFemaleCounts = countOrigins(resultsGender[1]);
+        var threeLists = creatingThreeList(originMaleCounts, originFemaleCounts);
+        var allData = threeLists[0];
+        var maleData = threeLists[1];
+        var femaleData = threeLists[2];
+        var countOriginData = countOrigins2(resultsGender)
+
+        console.log('opnieuw in DonutChart',countOriginData)
+
+        var dataList = []
+        for (var i=0; i < femaleData.length; i++){
+                dataList.push([femaleData[i], maleData[i]])
+        }
+        var color = d3.scaleOrdinal()
+          .range(["#FCD965", "#A4C2F4"])
     }
     if(! selected){
-        console.log('no its culture')
+        var countsCulture = countCultures(data);
+        var resultsCulture = selectCultureData(data, "collection_origins");
+        console.log('results culture', resultsCulture)
+        var originWesternCounts = countOrigins(resultsCulture[0]);
+        var originNonWesternCounts = countOrigins(resultsCulture[1]);
+        var threeLists = creatingThreeList(originWesternCounts, originNonWesternCounts);
+
+        var allData = threeLists[0];
+        var westernData = threeLists[1];
+        var nonWesternData = threeLists[2];
+        var countOriginData = countOrigins2(resultsCulture)
+
+        var dataList = []
+        for (var i=0; i < nonWesternData.length; i++){
+                dataList.push([nonWesternData[i], westernData[i]])
+        }
+        var color = d3.scaleOrdinal()
+          .range(["#DD7D6B", "#B6D7A8"])
     }
-
-
-    var countsGender = countGenders(data);
-    var resultsGender = selectGenderData(data, "collection_origins");
-    var originMaleCounts = countOrigins(resultsGender[0]);
-    var originFemaleCounts = countOrigins(resultsGender[1]);
-    var threeLists = creatingThreeList(originMaleCounts, originFemaleCounts);
-    var allData = threeLists[0];
-    var femaleData = threeLists[2];
-    var countOriginData = countOrigins2(resultsGender)
-
-    console.log('opnieuw in DonutChart',countOriginData)
-
-    var dataList = []
-	for (var i=0; i < femaleData.length; i++){
-	        dataList.push([femaleData[i], maleData[i]])
-	}
 
     var radius_all = getRadius(allData);
     Array.prototype.max = function() {
@@ -148,8 +209,6 @@ function donutChart(selection, data, selected){
                 .value(function(d) { console.log(d)
                         return d; });
 
-    var color = d3.scaleOrdinal()
-          .range(["#FCD965", "#A4C2F4"])
 
     function functionToTest(data){
 //        console.log('wat is dit',data)
@@ -193,8 +252,8 @@ function donutChart(selection, data, selected){
 //                .value(function(d) { console.log(d)
 //                        return d; });
 
-        var color = d3.scaleOrdinal()
-          .range(["#FCD965", "#A4C2F4"])
+//        var color = d3.scaleOrdinal()
+//          .range(["#FCD965", "#A4C2F4"])
 
 
         var points = g2.selectAll("g")
