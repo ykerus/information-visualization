@@ -104,6 +104,7 @@ function getRadius(value){
 
 
 function donutChart(selection, data){
+    console.log("in donutChart function")
     var genderCounts = countGenders(data);
     var results = selectGenderData(data, "collection_origins");
     var originMaleCounts = countOrigins(results[0]);
@@ -112,6 +113,8 @@ function donutChart(selection, data){
     var allData = threeLists[0];
     var femaleData = threeLists[2];
     var countOriginData = countOrigins2(results)
+
+    console.log('opnieuw in DonutChart',countOriginData)
 
     var dataList = []
 	for (var i=0; i < femaleData.length; i++){
@@ -123,18 +126,17 @@ function donutChart(selection, data){
       return Math.max.apply(null, this);
     };
 
-
     var g2 = selection.append("g")
-        .attr("transform", "translate(200,100)");
+        .attr("transform", "translate(200,200)");
 
-//    var arc = d3.arc()
-//                .innerRadius(10)    //TODO: radius bepalen adhv de data (dit moet ook in de functie komen te staan)
-//                .outerRadius(30);  //TODO: radius bepalen adhv de data
-//
-//    var pie = d3.pie()
-//                .sort(null)
-//                .value(function(d) { console.log(d)
-//                        return d; });
+    var arc = d3.arc()
+                .innerRadius(10)    //TODO: radius bepalen adhv de data (dit moet ook in de functie komen te staan)
+                .outerRadius(30);  //TODO: radius bepalen adhv de data
+
+    var pie = d3.pie()
+                .sort(null)
+                .value(function(d) { console.log(d)
+                        return d; });
 
     var color = d3.scaleOrdinal()
           .range(["#FCD965", "#A4C2F4"])
@@ -153,8 +155,10 @@ function donutChart(selection, data){
 
 
     function testFunction(data){
+        console.log('in test function')
         var totalData = []
         for (var i=0; i<data.length; i++){
+            console.log('in for loop')
             totalData.push(data[i][0]+data[i][1])
         }
 //        console.log(totalData)
@@ -162,15 +166,22 @@ function donutChart(selection, data){
         var radiusScale = d3.scaleLinear()
                            .domain([0, totalData.max()])
                            .range([15, 30]);
-        var arc = d3.arc()
-                .innerRadius((10)
-//                radiusScale(functionToTest(data))
-                )
-                .outerRadius(30);
-        var pie = d3.pie()
-                .sort(null)
-                .value(function(d) { console.log(d)
-                        return d; });
+
+//        var arc = d3.arc()
+//                .innerRadius(function(d){
+//                        console.log('in arc')
+//                        return 10
+//                }
+//
+////                (10)
+////                radiusScale(functionToTest(data))
+//                )
+//                .outerRadius(30);
+//
+//        var pie = d3.pie()
+//                .sort(null)
+//                .value(function(d) { console.log(d)
+//                        return d; });
 
         var color = d3.scaleOrdinal()
           .range(["#FCD965", "#A4C2F4"])
@@ -192,6 +203,7 @@ function donutChart(selection, data){
 //                    console.log('dit is d',d)
                     var testArray=[]
                     for (var key in d){
+                        console.log(d[key])
                         testArray.push(d[key])
                     }
                     return pie(testArray);
@@ -201,11 +213,17 @@ function donutChart(selection, data){
             .attr('class','arc');
 
         pies.append("path")
+//          .transition().delay()
           .attr('d',arc)
           .attr("fill",function(d,i){
                return color(i);
           });
+          console.log('einde functie')
+
     };
 
     testFunction(dataList)
+
+
+
 }
