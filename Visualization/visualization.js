@@ -35,6 +35,6 @@ d3.json("data.json").then(function(data) {
     timeSlider(sliderGroup, data);
     genderBar(genderGroup, data);
     cultureBar(cultureGroup, data);
-    donutChart(donutChartGroup, data, gSelected);
+//    donutChart(donutChartGroup, data, gSelected);
     loadBackground(data);
 });
