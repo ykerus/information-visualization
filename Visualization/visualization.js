@@ -26,8 +26,10 @@ var genderSelectGroup = svgContainer.append("g");
 var cultureSelectGroup = svgContainer.append("g");
 var gSelectBar = genderSelectGroup.selectAll("rect").data([0]);
 var cSelectBar = cultureSelectGroup.selectAll("rect").data([0]);
-var gSelected = false;
+var gSelected = true;
 var cSelected = false;
+
+//var g2Gender = donutChartGroup.append("g").attr("transform", "translate(200,200)");
 
 d3.json("data.json").then(function(data) {
     data.creation_year = data.creation_year.map((x)=>parseInt(x));
