@@ -92,4 +92,5 @@ function timeSlider(selection, data) {
           .value()
           .map(d3.format('.0f'))
           .join(' - '));
+    console.log(slider.value())
 }//timeSlider

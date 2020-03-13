@@ -4,12 +4,20 @@ body {
 }
 
 .container{
-  padding-top: 100px;
+  padding-top: 20px;
 }
 
 .text {
-    font-family: verdana;
-    color: steelblue;
+    font-family: FreeSans;
+    color: white;
+    text-align: center;
+}
+
+#timeheader{
+  font-size: 35px;
+  width: 60%;
+  margin: 0 auto;
+  border-bottom: 1px solid white;
 }
 
 p {
