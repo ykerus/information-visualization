@@ -32,7 +32,6 @@ function updateSlider(selection, props, data) {
                 genderSelectGroup.selectAll("rect").remove();
                 genderBar(genderGroup, dataSelection);
                 cultureBar(cultureGroup, dataSelection);
-                donutSelectGroup.selectAll("path").remove();
                 donutChart(donutChartGroup, dataSelection, gSelected);
                 loadBackground(dataSelection);
 
