@@ -21,7 +21,6 @@ var sliderGroup = svgContainer.append("g");
 var genderGroup = svgContainer.append("g");
 var cultureGroup = svgContainer.append("g");
 var donutChartGroup = svgContainer.append("g");
-var donutSelectGroup = svgContainer.append("g");
 var genderSelectGroup = svgContainer.append("g");
 var cultureSelectGroup = svgContainer.append("g");
 var gSelectBar = genderSelectGroup.selectAll("rect").data([0]);
@@ -35,6 +34,6 @@ d3.json("data.json").then(function(data) {
     timeSlider(sliderGroup, data);
     genderBar(genderGroup, data);
     cultureBar(cultureGroup, data);
-//    donutChart(donutChartGroup, data, gSelected);
+    donutChart(donutChartGroup, data, gSelected);
     loadBackground(data);
 });
