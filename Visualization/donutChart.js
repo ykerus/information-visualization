@@ -104,17 +104,6 @@ function getRadius(value){
 
 
 function donutChart(selection, data, selected){
-    console.log('wat is selected', selected)
-    console.log("in donutChart function")
-
-    if(selected){
-        console.log('yes its gender')
-    }
-    if(! selected){
-        console.log('no its culture')
-    }
-
-
     var countsGender = countGenders(data);
     var resultsGender = selectGenderData(data, "collection_origins");
     var originMaleCounts = countOrigins(resultsGender[0]);
@@ -123,8 +112,6 @@ function donutChart(selection, data, selected){
     var allData = threeLists[0];
     var femaleData = threeLists[2];
     var countOriginData = countOrigins2(resultsGender)
-
-    console.log('opnieuw in DonutChart',countOriginData)
 
     var dataList = []
 	for (var i=0; i < femaleData.length; i++){
