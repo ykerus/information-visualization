@@ -191,7 +191,7 @@ function donutChart(selectionDonut, data, selected){
 
         var radiusScale = d3.scaleLinear()
                            .domain([0, totalData.max()])
-                           .range([30, 50]);
+                           .range([0, 50]);
 
         var arc = d3.arc()
                 .innerRadius(function(d){
