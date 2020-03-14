@@ -66,6 +66,7 @@ function genderBar (selection, data) {
                 genderSelectGroup.selectAll("rect").remove();
         })
         .on("click", function() {
+            donutChart(donutChartGroup, data, true);
             if (!gSelected) {
                 cSelected = false;
                 cultureSelectGroup.selectAll("rect").remove();

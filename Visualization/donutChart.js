@@ -1,5 +1,3 @@
-var gColors = {FEMALE:"#FCD965", MALE:"#A4C2F4", UNKNOWN:"#D9D9D9"};
-var margin = 20;
 function count(array, item) {
 	var count = 0;
 	for (var i=0; i < array.length; i++)
@@ -16,6 +14,14 @@ function countGenders(data) {
     return countsGender;
 }//countGenders
 
+function countCultures(data) {
+	var cultureCounts = {};
+    cultureCounts["UNKNOWN"] = count(data.culture, "unknown");
+    cultureCounts["WESTERN"] = count(data.culture, "western");
+    cultureCounts["NON-WESTERN"] = count(data.culture, "non-western");
+    return cultureCounts;
+}//countCultures
+
 // change this that it is applicable to all settings (not only origins)
 function countOrigins(data){
     var originCount = {};
@@ -27,14 +33,9 @@ function countOrigins(data){
     return originCount
 }//countOrigins
 
-// change this that it is applicable to all settings (not only origins)
-function countOrigins2(data){
+function createDictData(data){
     var originCount=[];
     for (var i = 0; i<data.length-1; i++){
-        if (i == 0)
-            var gender = "male";
-        else
-            var gender = "female";
         originCount.push({"Web Gallery of Art '17": "", "value1": count(data[i], "Web Gallery of Art '17").toString() })
         originCount.push({"Web Gallery of Art '17": "", "value1": count(data[i+1], "Web Gallery of Art '17").toString() })
         originCount.push({"WikiArts 17": "", "value": count(data[i], "WikiArts 17").toString() })
@@ -75,11 +76,38 @@ function selectGenderData(data, variable){
     for (var i = 0; i < indexesMale.length; i++)
         resultArrMale.push(dataArray[indexesMale[i]]);
     var lengthArrMale = resultArrMale.length;
-//    console.log(lengthArrMale)
     var resultArrFemale = [];
     for(var i = 0; i<indexesFemale.length; i++)
         resultArrFemale.push(dataArray[indexesFemale[i]]);
     return [resultArrMale, resultArrFemale];
+}//selectGenderData
+
+
+// change this that it is applicable to all settings (not only origins)
+function selectCultureData(data, variable){
+    if (variable == "collection_origins"){
+        var dataArray = data.collection_origins
+    }
+    var cultureDataSelected = {};
+    var indexesWestern = [], i = -1;
+    var indexesNonWestern = [], j = -1;
+    var arr = data.culture;
+    var western = "western";
+    var nonWestern = "non-western";
+    while ((i = arr.indexOf(western, i+1)) !=-1){
+        indexesWestern.push(i);
+    }
+    while ((j = arr.indexOf(nonWestern, j+1)) !=-1){
+        indexesNonWestern.push(j);
+    }
+    var resultArrWestern = [];
+    for (var i = 0; i < indexesWestern.length; i++)
+        resultArrWestern.push(dataArray[indexesWestern[i]]);
+    var lengthArrWestern = resultArrWestern.length;
+    var resultArrNonWestern = [];
+    for(var i = 0; i<indexesNonWestern.length; i++)
+        resultArrNonWestern.push(dataArray[indexesNonWestern[i]]);
+    return [resultArrWestern, resultArrNonWestern];
 }//selectGenderData
 
 function creatingThreeList(dataMale,dataFemale){
@@ -103,124 +131,113 @@ function getRadius(value){
 }//getRadius
 
 
-function donutChart(selection, data, selected){
-    var countsGender = countGenders(data);
-    var resultsGender = selectGenderData(data, "collection_origins");
-    var originMaleCounts = countOrigins(resultsGender[0]);
-    var originFemaleCounts = countOrigins(resultsGender[1]);
-    var threeLists = creatingThreeList(originMaleCounts, originFemaleCounts);
-    var allData = threeLists[0];
-    var femaleData = threeLists[2];
-    var countOriginData = countOrigins2(resultsGender)
-
-    var dataList = []
-	for (var i=0; i < femaleData.length; i++){
-	        dataList.push([femaleData[i], maleData[i]])
-	}
+function donutChart(selectionDonut, data, selected){
+    if(selected){
+        var countsGender = countGenders(data);
+        var resultsGender = selectGenderData(data, "collection_origins");
+        var originMaleCounts = countOrigins(resultsGender[0]);
+        var originFemaleCounts = countOrigins(resultsGender[1]);
+        var threeLists = creatingThreeList(originMaleCounts, originFemaleCounts);
+        var allData = threeLists[0];
+        var maleData = threeLists[1];
+        var femaleData = threeLists[2];
+        var countOriginData = createDictData(resultsGender)
+        var dataList = []
+        for (var i=0; i < femaleData.length; i++){
+                dataList.push([femaleData[i], maleData[i]])
+        }
+        var color = d3.scaleOrdinal()
+          .range(["#FCD965", "#A4C2F4"])
+        selectionDonut.selectAll("g").remove()
+        var g2 = selectionDonut.append("g")
+            .attr("transform", "translate(200,200)");
+    }
+    if(! selected){
+        var countsCulture = countCultures(data);
+        var resultsCulture = selectCultureData(data, "collection_origins");
+        var originWesternCounts = countOrigins(resultsCulture[0]);
+        var originNonWesternCounts = countOrigins(resultsCulture[1]);
+        var threeLists = creatingThreeList(originWesternCounts, originNonWesternCounts);
+        var allData = threeLists[0];
+        var westernData = threeLists[1];
+        var nonWesternData = threeLists[2];
+        var countOriginData = createDictData(resultsCulture)
+        var dataList = []
+        for (var i=0; i < nonWesternData.length; i++){
+                dataList.push([nonWesternData[i], westernData[i]])
+        }
+        var color = d3.scaleOrdinal()
+          .range(["#DD7D6B", "#B6D7A8"])
+        selectionDonut.selectAll("g").remove()
+        var g2 = selectionDonut.append("g")
+            .attr("transform", "translate(200,200)");
+    }
 
     var radius_all = getRadius(allData);
     Array.prototype.max = function() {
       return Math.max.apply(null, this);
     };
 
-    var g2 = selection.append("g")
-        .attr("transform", "translate(200,200)");
-
-    var arc = d3.arc()
-                .innerRadius(10)    //TODO: radius bepalen adhv de data (dit moet ook in de functie komen te staan)
-                .outerRadius(30);  //TODO: radius bepalen adhv de data
-
     var pie = d3.pie()
                 .sort(null)
-                .value(function(d) { console.log(d)
+                .value(function(d) {
                         return d; });
 
-    var color = d3.scaleOrdinal()
-          .range(["#FCD965", "#A4C2F4"])
-
-    function functionToTest(data){
-//        console.log('wat is dit',data)
-//        .function(d){
-//            console.log(d[i][0]+data[i][1])
-//            return d[i][0]+data[i][1];}}
-        for (var i = 0; i<data.length; i++){
-//            console.log(data[i][0]+data[i][1])
-            return data[i][0]+data[i][1]
-
-        }
-        return 10}
-
-
-    function testFunction(data){
-        console.log('in test function')
+    function createChart(data, selected){
         var totalData = []
         for (var i=0; i<data.length; i++){
-            console.log('in for loop')
             totalData.push(data[i][0]+data[i][1])
         }
-//        console.log(totalData)
 
         var radiusScale = d3.scaleLinear()
                            .domain([0, totalData.max()])
-                           .range([15, 30]);
+                           .range([30, 50]);
 
-//        var arc = d3.arc()
-//                .innerRadius(function(d){
-//                        console.log('in arc')
-//                        return 10
-//                }
-//
-////                (10)
-////                radiusScale(functionToTest(data))
-//                )
-//                .outerRadius(30);
-//
-//        var pie = d3.pie()
-//                .sort(null)
-//                .value(function(d) { console.log(d)
-//                        return d; });
-
-        var color = d3.scaleOrdinal()
-          .range(["#FCD965", "#A4C2F4"])
-
-
-        var points = g2.selectAll("g")
-                .data(data)
-                .enter()
-                .append("g")
-                .attr("transform", function(d, i){
-                        return "translate("+(100*i)+",50)"
+        var arc = d3.arc()
+                .innerRadius(function(d){
+                        return radiusScale(d.radius)/2.5
                 })
-                .attr("id", function(d, i) {return "chart"+i; })
-                .append("g").attr("class", "pies");
+                .outerRadius(function(d){
+                    return radiusScale(d.radius)
+                });
+
+    var points = g2.selectAll("g")
+                        .data(data)
+                        .enter()
+                        .append("g")
+                        .attr("transform", function(d, i){
+                                return "translate("+(100*i)+",50)"
+                        })
+                        .attr("id", function(d, i) {return "chart"+i; })
+                        .append("g").attr("class", "pies");
 
         // Select each g element we created, and fill it with pie chart:
         var pies = points.selectAll(".pies")
             .data(function(d){
-//                    console.log('dit is d',d)
                     var testArray=[]
                     for (var key in d){
-                        console.log(d[key])
-                        testArray.push(d[key])
+                        if(key != 'max'){
+                            testArray.push(d[key])
+                        }
                     }
-                    return pie(testArray);
+                    var testPieArray = pie(testArray)
+                    var radiusTest = testPieArray[0]['data'] + testPieArray[1]['data']
+                    testPieArray[0]['radius'] = radiusTest
+                    testPieArray[1]['radius'] = radiusTest
+                    return testPieArray;
             })
             .enter()
             .append('g')
             .attr('class','arc');
 
         pies.append("path")
-//          .transition().delay()
-          .attr('d',arc)
+          .attr("d", arc)
           .attr("fill",function(d,i){
                return color(i);
-          });
-          console.log('einde functie')
-
+          })
+          .transition();
     };
 
-    testFunction(dataList)
-
-
+    createChart(dataList, selected)
 
 }
