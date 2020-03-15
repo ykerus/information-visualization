@@ -1,3 +1,5 @@
+var labelNames = ["Web Gallery of Art '17", "WikiArts 17", "DeviantArt", "MOMA - New York", "The Met 17"]
+var infoGroup = svgContainer.append("g");
 function count(array, item) {
 	var count = 0;
 	for (var i=0; i < array.length; i++)
@@ -132,6 +134,7 @@ function getRadius(value){
 
 
 function donutChart(selectionDonut, data, selected){
+    infoGroup.selectAll("text").remove()
     if(selected){
         var countsGender = countGenders(data);
         var resultsGender = selectGenderData(data, "collection_origins");
@@ -167,13 +170,47 @@ function donutChart(selectionDonut, data, selected){
                 dataList.push([nonWesternData[i], westernData[i]])
         }
         var color = d3.scaleOrdinal()
-          .range(["#DD7D6B", "#B6D7A8"])
+          .range(["#B6D7A8", "#DD7D6B"])
         selectionDonut.selectAll("g").remove()
         var g2 = selectionDonut.append("g")
             .attr("transform", "translate(200,200)");
     }
+    
 
     var radius_all = getRadius(allData);
+    var rScale = d3.scaleLinear()
+                           .domain([0, d3.max(radius_all)])
+                           .range([0, 50]);
+    
+    
+    var numbers = infoGroup.selectAll("text").data(allData);
+    numbers.enter().append("text");
+    infoGroup.selectAll("text")
+            .attr("fill", "white")
+            .attr("font-size","8px")
+            .attr("font-family", "verdana")
+            .attr("text-anchor","middle")
+            .text(function(d,i) {if (rScale(radius_all[i]) > 20 || rScale(radius_all[i])==0) return d;})   
+            .attr("transform", function(d,i) {
+                            return "translate(" + (200+100*i) +","+(250)+")";
+                    })
+    
+    var donutLabels = selectionDonut.selectAll("text")
+            .data(radius_all);
+    donutLabels.enter().append("text");
+    selectionDonut.selectAll("text")
+            .attr("fill", "white")
+            .attr("font-size","8px")
+            .attr("font-weight", "bold")
+            .attr("font-family", "verdana")
+            .attr("text-anchor","middle")
+            .text(function(d,i) {return labelNames[i];})   
+            .transition()
+            .duration(1000)
+            .attr("transform", function(d,i) {
+                            return "translate(" + (200+100*i) +","+(260+rScale(d))+")";
+                    })
+    
     Array.prototype.max = function() {
       return Math.max.apply(null, this);
     };
