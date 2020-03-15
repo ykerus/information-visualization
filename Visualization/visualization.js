@@ -15,7 +15,8 @@ var width = 800,
 
 var svgContainer = d3.select("body").append("svg")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height)
+        .attr("transform", "translate(300,0)");
 
 var sliderGroup = svgContainer.append("g");
 var genderGroup = svgContainer.append("g");
