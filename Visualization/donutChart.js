@@ -44,10 +44,10 @@ function createDictData(data){
         originCount.push({"WikiArts 17": "", "value": count(data[i+1], "WikiArts 17").toString() })
         originCount.push({"DeviantArt": "", "value2": count(data[i], "DeviantArt").toString() })
         originCount.push({"DeviantArt": "", "value2": count(data[i+1], "DeviantArt").toString() })
-        originCount.push({"MOMA - New York": count(data[i], "MOMA - New York").toString(), "value4": "33" })
-        originCount.push({"MOMA - New York": count(data[i+1], "MOMA - New York").toString(), "value4": "18" })
-        originCount.push({"The Met 17": count(data[i], "The Met 17").toString(), "value5": "2" })
-        originCount.push({"The Met 17": count(data[i+1], "The Met 17").toString(), "value5": "20" })
+        originCount.push({"MOMA - New York": count(data[i], "MOMA - New York").toString(), "value4": count(data[i],  "MOMA - New York").toString()  })
+        originCount.push({"MOMA - New York": count(data[i+1], "MOMA - New York").toString(), "value4": count(data[i+1],  "MOMA - New York").toString })
+        originCount.push({"The Met 17": count(data[i], "The Met 17").toString(), "value5": count(data[i],  "The Met 17").toString })
+        originCount.push({"The Met 17": count(data[i+1], "The Met 17").toString(), "value5": count(data[i+1],  "The Met 17").toString })
     }
     return originCount
 }//countOrigins
@@ -175,6 +175,9 @@ function donutChart(selectionDonut, data, selected){
         var g2 = selectionDonut.append("g")
             .attr("transform", "translate(200,200)");
     }
+
+
+
     
 
     var radius_all = getRadius(allData);
@@ -190,7 +193,7 @@ function donutChart(selectionDonut, data, selected){
             .attr("font-size","8px")
             .attr("font-family", "verdana")
             .attr("text-anchor","middle")
-            .text(function(d,i) {if (rScale(radius_all[i]) > 20 || rScale(radius_all[i])==0) return d;})   
+//            .text(function(d,i) {if (rScale(radius_all[i]) > 20 || rScale(radius_all[i])==0) return d;})
             .attr("transform", function(d,i) {
                             return "translate(" + (200+100*i) +","+(250)+")";
                     })
@@ -204,7 +207,7 @@ function donutChart(selectionDonut, data, selected){
             .attr("font-weight", "bold")
             .attr("font-family", "verdana")
             .attr("text-anchor","middle")
-            .text(function(d,i) {return labelNames[i];})   
+            .text(function(d,i) {return labelNames[i];})
             .transition()
             .duration(1000)
             .attr("transform", function(d,i) {
@@ -258,6 +261,8 @@ function donutChart(selectionDonut, data, selected){
                         }
                     }
                     var testPieArray = pie(testArray)
+                    testPieArray[0]['allData'] = [testPieArray[0].data, testPieArray[1].data]
+                    testPieArray[1]['allData'] = [testPieArray[0].data, testPieArray[1].data]
                     var radiusTest = testPieArray[0]['data'] + testPieArray[1]['data']
                     testPieArray[0]['radius'] = radiusTest
                     testPieArray[1]['radius'] = radiusTest
@@ -265,7 +270,66 @@ function donutChart(selectionDonut, data, selected){
             })
             .enter()
             .append('g')
-            .attr('class','arc');
+            .on("mouseover", function(d){
+                tooltip_donut.style("display", null);
+              })
+              .on("mouseout", function(){
+                    tooltip_donut.style("display", "none");
+                    tooltip_donut.selectAll("text").remove()
+              })
+              .on("mousemove", function(d){
+                    var xPos= d3.mouse(this)[0];
+                    var yPos = d3.mouse(this)[1]-100;
+                    tooltip_donut.attr("transform", "translate("+xPos+","+yPos+")");
+                    if(selected){
+                        var percentage_female = Math.round((d.allData[0]/(d.allData[0]+d.allData[1]))*100)
+                        var percentage_male = Math.round((d.allData[1]/(d.allData[0]+d.allData[1]))*100)
+
+                      tooltip_donut.append("text")
+                             .attr("x", 300)
+                             .attr("dy", 300)
+                              .attr("fill", "white")
+                              .style("font-size", "1em")
+                              .style("background-color", "red")
+                              .text("Female: "+d.allData[0]+" ("+percentage_female+ "%)")
+                              .attr("font-family", "verdana")
+
+                      tooltip_donut.append("text")
+                             .attr("x", 300)
+                             .attr("dy", 330)
+                              .attr("fill", "white")
+                              .style("font-size", "1em")
+                              .style("background-color", "red")
+                              .text("Male: "+d.allData[1]+" ("+percentage_male+"%)")
+                              .attr("font-family", "verdana")
+
+//                        tooltip_donut.select("text").text("female: "+d.allData[0]+" ("+percentage_female+ "%) male: "+d.allData[1]+" ("+percentage_male+"%)");
+                    }
+                    if(!selected){
+                        var percentage_nonWestern = Math.round((d.allData[0]/(d.allData[0]+d.allData[1]))*100)
+                        var percentage_western = Math.round((d.allData[1]/(d.allData[0]+d.allData[1]))*100)
+                      tooltip_donut.append("text")
+                             .attr("x", 300)
+                             .attr("dy", 300)
+                              .attr("fill", "white")
+                              .style("font-size", "1em")
+                              .style("background-color", "red")
+                              .text("Non-western: "+d.allData[0]+" ("+percentage_nonWestern+ "%)" )
+                              .attr("font-family", "verdana")
+
+                      tooltip_donut.append("text")
+                             .attr("x", 300)
+                             .attr("dy", 330)
+                              .attr("fill", "white")
+                              .style("font-size", "1em")
+                              .style("background-color", "red")
+                              .text("Western: "+d.allData[1]+" ("+percentage_western+"%)")
+                              .attr("font-family", "verdana")
+
+//                        tooltip_donut.select("text").text("non-western: "+d.allData[0]+" ("+percentage_nonWestern+ "%) western: "+d.allData[1]+" ("+percentage_western+"%)");
+                    }
+              })
+             .attr('class','arc');
 
         pies.append("path")
           .attr("d", arc)
@@ -273,6 +337,24 @@ function donutChart(selectionDonut, data, selected){
                return color(i);
           })
           .transition();
+
+          var tooltip_donut = selectionDonut.append("g")
+                .attr("class", tooltip_donut)
+                .style("display", "none");
+//          tooltip_donut.append("text")
+//                 .attr("x", 300)
+//                 .attr("dy", function(d){
+////                               console.log('xpos',xPos)
+////                               console.log('ypos', yPos)
+//        //                        console.log('wat is d', d)
+//                                return 300
+//                  })
+//                  .attr("fill", "white")
+//        //                .atr("dy", "1.2em")
+//                  .style("font-size", "1em")
+//                  .style("background-color", "red")
+
+
     };
 
     createChart(dataList, selected)
