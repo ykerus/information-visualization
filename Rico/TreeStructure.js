@@ -14,18 +14,24 @@ function countElements(data,category){
 function createTreeStructure(data, category) {
     var root = 0;
     dictOfCounts = countElements(data, category);
-    var categoryTree = {};
-    var categories = []
-    categoryTree.categories = categories;
+    var categories = [];
     //document.write(JSON.stringify(categoryTree));
+    var maxValue = 0 
     for (var key in dictOfCounts) {
         var object = {
-          "Category": key,
-          "Count": dictOfCounts[key]
+          "name": key,
+          "value": dictOfCounts[key]
         }
-       categoryTree.categories.push(object);
+        if (dictOfCounts[key] > maxValue){
+            maxValue = dictOfCounts[key]
+        }
+       categories.push(object);
     }
+    var categoryTree = {
+        "name": "All",
+        "value": maxValue,
+        "children": categories
+    };
     //document.write(JSON.stringify(categoryTree));
-    //console.log(sitePersonel);
-    return categoryTree
+    return categoryTree;
 }

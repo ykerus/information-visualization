@@ -15,12 +15,19 @@ var width = 800,
 
 var svgContainer = d3.select("body").append("svg")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height)
+        .attr("transform", "translate(300,0)");
 
 var sliderGroup = svgContainer.append("g");
 var genderGroup = svgContainer.append("g");
 var cultureGroup = svgContainer.append("g");
-var bubbleChartGroup = svgContainer.append("g");
+var donutChartGroup = svgContainer.append("g");
+var genderSelectGroup = svgContainer.append("g");
+var cultureSelectGroup = svgContainer.append("g");
+var gSelectBar = genderSelectGroup.selectAll("rect").data([0]);
+var cSelectBar = cultureSelectGroup.selectAll("rect").data([0]);
+var gSelected = true;
+var cSelected = false;
 
 d3.json("data.json").then(function(data) {
     data.creation_year = data.creation_year.map((x)=>parseInt(x));
@@ -28,6 +35,6 @@ d3.json("data.json").then(function(data) {
     timeSlider(sliderGroup, data);
     genderBar(genderGroup, data);
     cultureBar(cultureGroup, data);
-    bubbleChart(bubbleChartGroup, data);
-		loadBackground(data)
+    donutChart(donutChartGroup, data, gSelected);
+    loadBackground(data);
 });

@@ -28,9 +28,11 @@ function updateSlider(selection, props, data) {
                 selection.call(slider);
             }//if
             else {
+                cultureSelectGroup.selectAll("rect").remove();
+                genderSelectGroup.selectAll("rect").remove();
                 genderBar(genderGroup, dataSelection);
                 cultureBar(cultureGroup, dataSelection);
-                bubbleChart(bubbleChartGroup, dataSelection);
+                donutChart(donutChartGroup, dataSelection, gSelected);
                 loadBackground(dataSelection);
 
                 if (Math.abs(val[1]-val[0]) <= 500 && Math.abs(props.showMax-props.showMin) > 1000) {
