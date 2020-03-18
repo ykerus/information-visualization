@@ -2,7 +2,7 @@ var loadviv = new Vivus("loading", {type: "delayed", duration: 200, file: "omnia
   loadviv.play(loadviv.getStatus() === 'end' ? -1 : 1)
 });
 
-setTimeout(fadeout, 9000);
+setTimeout(fadeout, 8000);
 
 function fadeout(){
   $("#allload").fadeOut(2000, function(){$("#allload").remove();});
