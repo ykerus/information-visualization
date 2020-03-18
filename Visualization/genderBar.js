@@ -1,4 +1,6 @@
 var gColors = {FEMALE:"#FCD965", MALE:"#A4C2F4", UNKNOWN:"#D9D9D9", SELECTHOVER:"white"};
+//var gColors = {FEMALE:"#efa5ee", MALE:"#A4C2F4", UNKNOWN:"#D9D9D9", SELECTHOVER:"white"};
+
 var gSymbols = {FEMALE:"\u2640", MALE:"\u2642", UNKNOWN:"?"}
 var gSelMargin = 6;
 var gMargin = 80;
@@ -35,53 +37,48 @@ function genderBar (selection, data) {
 
     bars.enter()
             .append("rect")
-            .on("mouseover", function(){
-                    tooltip_genderBar.style("display", null);
-//                    Tooltip
-//                      .style("opacity", 1)
-//                    d3.select(this)
-//                      .style("stroke", "black")
-//                      .style("opacity", 1)
-            })
-            .on("mouseout", function(){
-                    tooltip_genderBar.style("display", "none");
-                    tooltip_genderBar.selectAll("text").remove()
-            })
-            .on("mousemove", function(d){
-                    var xPos= d3.mouse(this)[0];
-                    var yPos = d3.mouse(this)[1]-100;
-                    tooltip_genderBar.attr("transform", "translate("+xPos+","+yPos+")");
-                    var percentage_female = Math.round((genderCounts["FEMALE"]/ (genderCounts["FEMALE"]+ genderCounts["MALE"]+genderCounts["UNKNOWN"])) *100)
-                    var percentage_male = Math.round((genderCounts["MALE"]/ (genderCounts["FEMALE"]+ genderCounts["MALE"]+genderCounts["UNKNOWN"])) *100)
-                    var percentage_unknown = Math.round((genderCounts["UNKNOWN"]/ (genderCounts["FEMALE"]+ genderCounts["MALE"]+genderCounts["UNKNOWN"])) *100)
-
-                    tooltip_genderBar.append("text")
-                                     .attr("x", 75)
-                                     .attr("dy", 100)
-                                     .attr("fill", "white")
-                                     .text("Female: "+genderCounts["FEMALE"]+" ("+percentage_female+"%)")
-                                      .style("font-size", "1em")
-                                      .attr("font-family", "verdana")
-
-                        tooltip_genderBar.append("text")
-                                     .attr("x", 75)
-                                     .attr("dy", 125)
-                                     .attr("fill", "white")
-                                     .text("Male: "+genderCounts["MALE"]+" ("+percentage_male+"%)")
-                                      .style("font-size", "1em")
-                                      .attr("font-family", "verdana")
-
-                        tooltip_genderBar.append("text")
-                                     .attr("x", 75)
-                                     .attr("dy", 150)
-                                     .attr("fill", "white")
-                                     .text("Unknown: "+genderCounts["UNKNOWN"]+" ("+percentage_unknown+"%)")
-                                      .style("font-size", "1em")
-                                      .style("background", "white")
-                                      .attr("font-family", "verdana")
-
-//                    tooltip_genderBar.select("text").text("female: "+genderCounts["FEMALE"]+ " male: "+genderCounts["MALE"]+" unknown: "+genderCounts["UNKNOWN"]);
-            });
+//            .on("mouseover", function(){
+//                    tooltip_genderBar.style("display", null);
+//            })
+//            .on("mouseout", function(){
+//                    tooltip_genderBar.style("display", "none");
+//                    tooltip_genderBar.selectAll("text").remove()
+//            })
+//            .on("mousemove", function(d){
+//                    var xPos= d3.mouse(this)[0];
+//                    var yPos = d3.mouse(this)[1]-100;
+//                    tooltip_genderBar.attr("transform", "translate("+xPos+","+yPos+")");
+//                    var percentage_female = Math.round((genderCounts["FEMALE"]/ (genderCounts["FEMALE"]+ genderCounts["MALE"]+genderCounts["UNKNOWN"])) *100)
+//                    var percentage_male = Math.round((genderCounts["MALE"]/ (genderCounts["FEMALE"]+ genderCounts["MALE"]+genderCounts["UNKNOWN"])) *100)
+//                    var percentage_unknown = Math.round((genderCounts["UNKNOWN"]/ (genderCounts["FEMALE"]+ genderCounts["MALE"]+genderCounts["UNKNOWN"])) *100)
+//
+//                    tooltip_genderBar.append("text")
+//                                     .attr("x", 75)
+//                                     .attr("dy", 100)
+//                                     .attr("fill", "white")
+//                                     .text("Female: "+genderCounts["FEMALE"]+" ("+percentage_female+"%)")
+//                                      .style("font-size", "1em")
+//                                      .attr("font-family", "verdana")
+//
+//                        tooltip_genderBar.append("text")
+//                                     .attr("x", 75)
+//                                     .attr("dy", 125)
+//                                     .attr("fill", "white")
+//                                     .text("Male: "+genderCounts["MALE"]+" ("+percentage_male+"%)")
+//                                      .style("font-size", "1em")
+//                                      .attr("font-family", "verdana")
+//
+//                        tooltip_genderBar.append("text")
+//                                     .attr("x", 75)
+//                                     .attr("dy", 150)
+//                                     .attr("fill", "white")
+//                                     .text("Unknown: "+genderCounts["UNKNOWN"]+" ("+percentage_unknown+"%)")
+//                                      .style("font-size", "1em")
+//                                      .style("background", "white")
+//                                      .attr("font-family", "verdana")
+//
+////                    tooltip_genderBar.select("text").text("female: "+genderCounts["FEMALE"]+ " male: "+genderCounts["MALE"]+" unknown: "+genderCounts["UNKNOWN"]);
+//            });
     labels.enter().append("text");
     
     
@@ -96,8 +93,45 @@ function genderBar (selection, data) {
             .attr("y", gMargin - gSelMargin)
             .attr("height", height-2*gMargin + 2*gSelMargin)
     }
+
     selection.on("mouseover", function() {
+        var percentage_female = Math.round((genderCounts["FEMALE"]/ (genderCounts["FEMALE"]+ genderCounts["MALE"]+genderCounts["UNKNOWN"])) *100)
+        var percentage_male = Math.round((genderCounts["MALE"]/ (genderCounts["FEMALE"]+ genderCounts["MALE"]+genderCounts["UNKNOWN"])) *100)
+        var percentage_unknown = Math.round((genderCounts["UNKNOWN"]/ (genderCounts["FEMALE"]+ genderCounts["MALE"]+genderCounts["UNKNOWN"])) *100)
+        gInfoBox.enter().append("rect")
+                .attr("x", width/20 + barWidth + 20)
+                .attr("fill", "white")
+                .attr("stroke", "black")
+                .attr("width", 150)
+                .attr("height", 80)
+                .attr("y", height/5)
+        gInfoText.enter().append("text")
+                .text("Female: "+genderCounts["FEMALE"]+" ("+percentage_female+"%)")
+                .attr("x", width/20 + barWidth + 20 + 10)
+                .attr("y", height/5+15)
+                .attr("fill", "black")
+                .attr("font-family", "verdana")
+                .attr("font-size", "10px")
+         gInfoText.enter().append("text")
+                .text("Male: "+genderCounts["MALE"]+" ("+percentage_male+"%)")
+                .attr("x", width/20 + barWidth + 20 + 10)
+                .attr("y", height/5 + 15 + 25)
+                .attr("fill", "black")
+                .attr("font-family", "verdana")
+                .attr("font-size", "10px")
+         gInfoText.enter().append("text")
+                .text("Unknown: "+genderCounts["UNKNOWN"]+" ("+percentage_unknown+"%)")
+                .attr("x", width/20 + barWidth + 20 + 10)
+                .attr("y", height/5 + 15 + 25 + 25)
+                .attr("fill", "black")
+                .attr("font-family", "verdana")
+                .attr("font-size", "10px")
+        d3.select(this).style("cursor", "pointer");
+        console.log('height',height/20)
+        var gDarkColors = {FEMALE:"#d9bb57", MALE:"#97b2e0", UNKNOWN:"#b8b8b8", SELECTHOVER:"white"};
         if (!gSelected) {
+            selection.selectAll("rect")
+                    .attr("fill", function(d) {return gDarkColors[d[0]]})
             gSelectBar.enter().append("rect")
                 .attr("x", width/20 - gSelMargin)
                 .attr("fill", "none")
@@ -110,7 +144,12 @@ function genderBar (selection, data) {
             }
         })
         .on("mouseout", function() {
+            d3.select(this).style("cursor", "default");
+            genderInfoGroup.selectAll("rect").remove()
+            genderInfoGroup.selectAll("text").remove()
             if (!gSelected)
+                selection.selectAll("rect")
+                    .attr("fill", function(d) {return gColors[d[0]]})
                 genderSelectGroup.selectAll("rect").remove();
         })
         .on("click", function() {
@@ -119,6 +158,8 @@ function genderBar (selection, data) {
                 cSelected = false;
                 cultureSelectGroup.selectAll("rect").remove();
                 gSelected = true;
+                selection.selectAll("rect")
+                    .attr("fill", function(d) {return gColors[d[0]]})
             }});  
 
     //TODO: combine into one group instead of two
@@ -167,10 +208,10 @@ function genderBar (selection, data) {
                         else 
                             return "translate("+x+","+y+")";
                     })
-
-    var tooltip_genderBar = selection.append("g")
-                    .attr("class", tooltip_genderBar)
-                    .style("display", "none");
+//
+//    var tooltip_genderBar = selection.append("g")
+//                    .attr("class", tooltip_genderBar)
+//                    .style("display", "none");
 
 //    tooltip_genderBar.append("text")
 //                     .attr("x", 75)
