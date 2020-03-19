@@ -1,5 +1,5 @@
-var gColors = {FEMALE:"#FCD965", MALE:"#A4C2F4", UNKNOWN:"#D9D9D9", SELECTHOVER:"white"};
-//var gColors = {FEMALE:"#efa5ee", MALE:"#A4C2F4", UNKNOWN:"#D9D9D9", SELECTHOVER:"white"};
+//var gColors = {FEMALE:"#FCD965", MALE:"#A4C2F4", UNKNOWN:"#D9D9D9", SELECTHOVER:"white"};
+var gColors = {FEMALE:"#d95f02", MALE:"#1b9e77", UNKNOWN:"#D9D9D9", SELECTHOVER:"white"};
 
 var gSymbols = {FEMALE:"\u2640", MALE:"\u2642", UNKNOWN:"?"}
 var gSelMargin = 6;
@@ -35,50 +35,7 @@ function genderBar (selection, data) {
     var labels = selection.selectAll("text")
                .data(Object.entries(genderCounts));
 
-    bars.enter()
-            .append("rect")
-//            .on("mouseover", function(){
-//                    tooltip_genderBar.style("display", null);
-//            })
-//            .on("mouseout", function(){
-//                    tooltip_genderBar.style("display", "none");
-//                    tooltip_genderBar.selectAll("text").remove()
-//            })
-//            .on("mousemove", function(d){
-//                    var xPos= d3.mouse(this)[0];
-//                    var yPos = d3.mouse(this)[1]-100;
-//                    tooltip_genderBar.attr("transform", "translate("+xPos+","+yPos+")");
-//                    var percentage_female = Math.round((genderCounts["FEMALE"]/ (genderCounts["FEMALE"]+ genderCounts["MALE"]+genderCounts["UNKNOWN"])) *100)
-//                    var percentage_male = Math.round((genderCounts["MALE"]/ (genderCounts["FEMALE"]+ genderCounts["MALE"]+genderCounts["UNKNOWN"])) *100)
-//                    var percentage_unknown = Math.round((genderCounts["UNKNOWN"]/ (genderCounts["FEMALE"]+ genderCounts["MALE"]+genderCounts["UNKNOWN"])) *100)
-//
-//                    tooltip_genderBar.append("text")
-//                                     .attr("x", 75)
-//                                     .attr("dy", 100)
-//                                     .attr("fill", "white")
-//                                     .text("Female: "+genderCounts["FEMALE"]+" ("+percentage_female+"%)")
-//                                      .style("font-size", "1em")
-//                                      .attr("font-family", "verdana")
-//
-//                        tooltip_genderBar.append("text")
-//                                     .attr("x", 75)
-//                                     .attr("dy", 125)
-//                                     .attr("fill", "white")
-//                                     .text("Male: "+genderCounts["MALE"]+" ("+percentage_male+"%)")
-//                                      .style("font-size", "1em")
-//                                      .attr("font-family", "verdana")
-//
-//                        tooltip_genderBar.append("text")
-//                                     .attr("x", 75)
-//                                     .attr("dy", 150)
-//                                     .attr("fill", "white")
-//                                     .text("Unknown: "+genderCounts["UNKNOWN"]+" ("+percentage_unknown+"%)")
-//                                      .style("font-size", "1em")
-//                                      .style("background", "white")
-//                                      .attr("font-family", "verdana")
-//
-////                    tooltip_genderBar.select("text").text("female: "+genderCounts["FEMALE"]+ " male: "+genderCounts["MALE"]+" unknown: "+genderCounts["UNKNOWN"]);
-//            });
+    bars.enter().append("rect");
     labels.enter().append("text");
     
     
@@ -127,8 +84,7 @@ function genderBar (selection, data) {
                 .attr("font-family", "verdana")
                 .attr("font-size", "10px")
         d3.select(this).style("cursor", "pointer");
-        console.log('height',height/20)
-        var gDarkColors = {FEMALE:"#d9bb57", MALE:"#97b2e0", UNKNOWN:"#b8b8b8", SELECTHOVER:"white"};
+        var gDarkColors = {FEMALE:"#a64902", MALE:"#126b51", UNKNOWN:"#b8b8b8", SELECTHOVER:"white"};
         if (!gSelected) {
             selection.selectAll("rect")
                     .attr("fill", function(d) {return gDarkColors[d[0]]})
@@ -151,6 +107,17 @@ function genderBar (selection, data) {
                 selection.selectAll("rect")
                     .attr("fill", function(d) {return gColors[d[0]]})
                 genderSelectGroup.selectAll("rect").remove();
+            if (gSelected) {
+                gSelectBar.enter().append("rect")
+                    .attr("x",width/20 - gSelMargin)
+                    .attr("fill", "none")
+                    .attr("rx", 2)
+                    .attr("ry", 2)
+                    .attr("stroke", gColors.SELECTHOVER)
+                    .attr("width", barWidth + 2 * gSelMargin)
+                    .attr("y", gMargin - gSelMargin)
+                    .attr("height", height-2*gMargin + 2*gSelMargin)
+            }
         })
         .on("click", function() {
             donutChart(donutChartGroup, data, true);
@@ -208,31 +175,4 @@ function genderBar (selection, data) {
                         else 
                             return "translate("+x+","+y+")";
                     })
-//
-//    var tooltip_genderBar = selection.append("g")
-//                    .attr("class", tooltip_genderBar)
-//                    .style("display", "none");
-
-//    tooltip_genderBar.append("text")
-//                     .attr("x", 75)
-//                     .attr("dy", 100)
-//                     .attr("fill", "white")
-//                     .attr("id", "line1")
-//            //                .atr("dy", "1.2em")
-//                      .style("font-size", "1em")
-//                      .style("background-color", "red")
-//                      .style('display', 'block')
-//t
-//    tooltip_genderBar.append("text")
-//                     .attr("x", 75)
-//                     .attr("dy", 200)
-//                     .attr("fill", "red")
-//                     .attr("id", "line2")
-//            //                .atr("dy", "1.2em")
-//                      .style("font-size", "1em")
-//                      .style("background-color", "red")
-//                      .style('display', 'block')
-
-
-
 }//genderBar

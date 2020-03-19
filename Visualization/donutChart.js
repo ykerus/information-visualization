@@ -149,8 +149,10 @@ function donutChart(selectionDonut, data, selected){
         for (var i=0; i < femaleData.length; i++){
                 dataList.push([femaleData[i], maleData[i]])
         }
+//        var color = d3.scaleOrdinal()
+//          .range(["#FCD965", "#A4C2F4"])
         var color = d3.scaleOrdinal()
-          .range(["#FCD965", "#A4C2F4"])
+          .range(["#d95f02", "#1b9e77"])
         selectionDonut.selectAll("g").remove()
         var g2 = selectionDonut.append("g")
             .attr("transform", "translate(200,200)");
@@ -169,16 +171,14 @@ function donutChart(selectionDonut, data, selected){
         for (var i=0; i < nonWesternData.length; i++){
                 dataList.push([nonWesternData[i], westernData[i]])
         }
+//        var color = d3.scaleOrdinal()
+//          .range(["#B6D7A8", "#DD7D6B"])
         var color = d3.scaleOrdinal()
-          .range(["#B6D7A8", "#DD7D6B"])
+          .range(["#e7298a", "#7570b3"])
         selectionDonut.selectAll("g").remove()
         var g2 = selectionDonut.append("g")
             .attr("transform", "translate(200,200)");
     }
-
-
-
-    
 
     var radius_all = getRadius(allData);
     var rScale = d3.scaleLinear()
@@ -341,19 +341,6 @@ function donutChart(selectionDonut, data, selected){
           var tooltip_donut = selectionDonut.append("g")
                 .attr("class", tooltip_donut)
                 .style("display", "none");
-//          tooltip_donut.append("text")
-//                 .attr("x", 300)
-//                 .attr("dy", function(d){
-////                               console.log('xpos',xPos)
-////                               console.log('ypos', yPos)
-//        //                        console.log('wat is d', d)
-//                                return 300
-//                  })
-//                  .attr("fill", "white")
-//        //                .atr("dy", "1.2em")
-//                  .style("font-size", "1em")
-//                  .style("background-color", "red")
-
 
     };
 

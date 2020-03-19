@@ -8,7 +8,8 @@ function getSlider(props) {
             .ticks(5)
             .tickFormat(d3.format('.0f'))
             .default([props.pointMin, props.pointMax])
-            .fill('#2196f3');
+            .fill('#ffbc21');
+//            .fill('#2196f3');
 }//getSlider
 
 function updateSlider(selection, props, data) {
@@ -94,5 +95,4 @@ function timeSlider(selection, data) {
           .value()
           .map(d3.format('.0f'))
           .join(' - '));
-    console.log(slider.value())
 }//timeSlider

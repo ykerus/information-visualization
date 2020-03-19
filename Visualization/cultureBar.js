@@ -1,5 +1,5 @@
-var cColors = {"NON-WESTERN":"#B6D7A8", WESTERN:"#DD7D6B", UNKNOWN:"#D9D9D9", SELECTHOVER:"white"};
-//var cColors = {"NON-WESTERN":"#ff8896", WESTERN:"#ffa600", UNKNOWN:"#D9D9D9", SELECTHOVER:"white"};
+//var cColors = {"NON-WESTERN":"#B6D7A8", WESTERN:"#DD7D6B", UNKNOWN:"#D9D9D9", SELECTHOVER:"white"};
+var cColors = {"NON-WESTERN":"#e7298a", WESTERN:"#7570b3", UNKNOWN:"#D9D9D9", SELECTHOVER:"white"};
 var cSymbols = {"NON-WESTERN":"NW", WESTERN:"W", UNKNOWN:"?"};
 var cSelMargin = 6;
 var cMargin = 80;
@@ -34,51 +34,7 @@ function cultureBar (selection, data) {
     var labels = selection.selectAll("text")
                .data(Object.entries(cultureCounts));
 
-    bars.enter()
-            .append("rect")
-//            .on("mouseover", function(){
-//                    tooltip_cultureBar.style("display", null);
-//            })
-//            .on("mouseout", function(){
-//                    tooltip_cultureBar.style("display", "none");
-//                    tooltip_cultureBar.selectAll("text").remove()
-//            })
-//            .on("mousemove", function(d){
-//                    var xPos= d3.mouse(this)[0]-300;
-//                    var yPos = d3.mouse(this)[1]-100;
-//                    tooltip_cultureBar.attr("transform", "translate("+xPos+","+yPos+")");
-//                    var percentage_nonWestern = Math.round((cultureCounts["NON-WESTERN"]/(cultureCounts["NON-WESTERN"]+cultureCounts["WESTERN"]+cultureCounts["UNKNOWN"]))*100)
-//                    var percentage_western = Math.round((cultureCounts["WESTERN"]/(cultureCounts["NON-WESTERN"]+cultureCounts["WESTERN"]+cultureCounts["UNKNOWN"]))*100)
-//                    var percentage_unknown = Math.round((cultureCounts["UNKNOWN"]/(cultureCounts["NON-WESTERN"]+cultureCounts["WESTERN"]+cultureCounts["UNKNOWN"]))*100)
-//
-//                    tooltip_cultureBar.append("text")
-//                                     .attr("x", 75)
-//                                     .attr("dy", 100)
-//                                     .attr("fill", "white")
-//                                     .text("Non-western: "+cultureCounts["NON-WESTERN"]+" ("+percentage_nonWestern+"%)")
-//                                      .style("font-size", "1em")
-//                                      .attr("font-family", "verdana")
-//
-//                    tooltip_cultureBar.append("text")
-//                                     .attr("x", 75)
-//                                     .attr("dy", 125)
-//                                     .attr("fill", "white")
-//                                     .text("Western: "+cultureCounts["WESTERN"]+" ("+percentage_western+"%)")
-//                                      .style("font-size", "1em")
-//                                      .attr("font-family", "verdana")
-//
-//                    tooltip_cultureBar.append("text")
-//                                     .attr("x", 75)
-//                                     .attr("dy", 150)
-//                                     .attr("fill", "white")
-//                                     .text("Unknown: "+cultureCounts["UNKNOWN"]+" ("+percentage_unknown+"%)")
-//                                      .style("font-size", "1em")
-//                                      .style("background", "white")
-//                                      .attr("font-family", "verdana")
-//
-//
-////                    tooltip_cultureBar.select("text").text("non-western: "+cultureCounts["NON-WESTERN"]+" western: "+cultureCounts["WESTERN"]+" unknown: "+cultureCounts["UNKNOWN"]);
-//            });
+    bars.enter().append("rect");
     labels.enter().append("text");
     
     if (cSelected) {
@@ -94,7 +50,7 @@ function cultureBar (selection, data) {
     }
     selection.on("mouseover", function() {
         d3.select(this).style("cursor", "pointer");
-        var cDarkColors = {"NON-WESTERN":"#9eba91", WESTERN:"#ad6254", UNKNOWN:"#b8b8b8", SELECTHOVER:"white"};
+        var cDarkColors = {"NON-WESTERN":"#ba216f", WESTERN:"#575385", UNKNOWN:"#b8b8b8", SELECTHOVER:"white"};
         var percentage_nonWestern = Math.round((cultureCounts["NON-WESTERN"]/(cultureCounts["NON-WESTERN"]+cultureCounts["WESTERN"]+cultureCounts["UNKNOWN"]))*100)
         var percentage_western = Math.round((cultureCounts["WESTERN"]/(cultureCounts["NON-WESTERN"]+cultureCounts["WESTERN"]+cultureCounts["UNKNOWN"]))*100)
         var percentage_unknown = Math.round((cultureCounts["UNKNOWN"]/(cultureCounts["NON-WESTERN"]+cultureCounts["WESTERN"]+cultureCounts["UNKNOWN"]))*100)
@@ -151,6 +107,17 @@ function cultureBar (selection, data) {
                 selection.selectAll("rect")
                     .attr("fill", function(d) {return cColors[d[0]]})
                 cultureSelectGroup.selectAll("rect").remove();
+            if (cSelected) {
+                cSelectBar.enter().append("rect")
+                    .attr("x", width - 3*barWidth/2 - cSelMargin)
+                    .attr("fill", "none")
+                    .attr("stroke", cColors.SELECTHOVER)
+                    .attr("rx", 2)
+                    .attr("ry", 2)
+                    .attr("width", barWidth + 2 * cSelMargin)
+                    .attr("y", cMargin - cSelMargin)
+                    .attr("height", height-2*cMargin + 2*cSelMargin)
+            }
         })
         .on("click", function() {
             donutChart(donutChartGroup, data, false);
@@ -203,22 +170,5 @@ function cultureBar (selection, data) {
                             stacked += heightScale(d[1]);
                             return height-cMargin - stacked + heightScale(d[1])/2 + 6;
                     });
-
-
-
-    var tooltip_cultureBar = selection.append("g")
-                    .attr("class", tooltip_cultureBar)
-                    .attr("fill", "white")
-                    .style("display", "none");
-
-
-
-
-//              tooltip_cultureBar.append("text")
-//                     .attr("x", 100)
-//                     .attr("dy", 100)
-//                      .attr("fill", "white")
-//                      .style("font-size", "1em")
-//                      .style("background-color", "red")
 
 }//cultureBar
