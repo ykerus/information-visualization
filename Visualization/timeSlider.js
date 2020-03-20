@@ -89,6 +89,7 @@ function timeSlider(selection, data) {
         .transition()
         .attr('transform', 'translate(30,20)')
         .call(slider.width(width-2*30));
+    
 
     d3.select('p#value-range').text(
         slider
