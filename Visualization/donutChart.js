@@ -1,4 +1,4 @@
-var labelNames = ["Web Gallery of Art '17", "WikiArts 17", "DeviantArt", "MOMA - New York", "The Met 17"]
+var labelNames = ["Web Gallery of Art", "WikiArts", "DeviantArt", "MOMA", "The Met"]
 var infoGroup = svgContainer.append("g");
 function count(array, item) {
 	var count = 0;
@@ -203,7 +203,7 @@ function donutChart(selectionDonut, data, selected){
     donutLabels.enter().append("text");
     selectionDonut.selectAll("text")
             .attr("fill", "white")
-            .attr("font-size","8px")
+            .attr("font-size","11px")
             .attr("font-weight", "bold")
             .attr("font-family", "verdana")
             .attr("text-anchor","middle")
@@ -211,7 +211,12 @@ function donutChart(selectionDonut, data, selected){
             .transition()
             .duration(1000)
             .attr("transform", function(d,i) {
-                            return "translate(" + (200+100*i) +","+(260+rScale(d))+")";
+                            if (i==0)
+                                return "translate(" + (191+100*i) +","+(260+rScale(d))+")";
+                            else if (i==3)
+                                return "translate(" + (200+100*i) +","+(260+rScale(d))+")";
+                            else
+                                return "translate(" + (200+100*i) +","+(260+rScale(d))+")";
                     })
     
     Array.prototype.max = function() {
