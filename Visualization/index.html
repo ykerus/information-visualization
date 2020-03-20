@@ -19,8 +19,15 @@
     </div>
     <div class="background"></div>
 
-    <h1 id=logo >OmniArt</h1>
+    <h1 id=logo >Gender and cultural inequality in OmniArt</h1>
     <button id="help">Help</button>
+    <div class="container">
+      <h3 id="timeheader" class="text">Time Period</h3>
+      <div class="row align-items-center">
+        <div class="text col-sm-2"><p id="value-range"></p></div>
+        <div class="col-sm"><div id="slider-range"></div></div>
+      </div>
+    </div>
 
     <div id="HelpModal" class="modal">
       <div class="help-modal-content">
@@ -59,19 +66,13 @@
           <p>Time slider: <br>
               The slider can be used to select a time period (in years), and the diagrams will update accordingly. The slider will zoom in when the selected period is shorter than 500 years. To zoom out, move both pointers to each end of the slider. <br><br>
               Bar charts and donuts: <br>
-              The bar charts can be clicked in order to switch between categories (male vs female and western vs non-western). The bar charts visualize the overall ratios within the category. The donut charts in the middle show the relative distribution of artworks within different collections, and the ratios within the selected category. If a donut is large enough, the number of artworks of that specific collection will appear in the donut hole. Unknown cases are not taken into account in the donut charts.</p>
+              The bar charts can be clicked in order to switch between categories (male vs female and western vs non-western). The bar charts visualize the overall ratios within the category. The donut charts in the middle show the relative distribution of artworks within different collections, and the ratios within the selected category. Unknown cases are not taken into account in the donut charts.<br><br>
+              Hovering over the bar charts and donut charts will give the exact numbers of the categories with their corresponding percentages.</p>
         </div>
       </div>
 
     </div>
 
-    <div class="container">
-      <h3 id="timeheader" class="text">Time Period</h3>
-      <div class="row align-items-center">
-        <div class="text col-sm-2"><p id="value-range"></p></div>
-        <div class="col-sm"><div id="slider-range"></div></div>
-      </div>
-    </div>
     <script src="visualization.js"></script>
     <script src="timeSlider.js"></script>
     <script src="cultureBar.js"></script>

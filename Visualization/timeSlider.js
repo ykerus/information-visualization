@@ -8,7 +8,8 @@ function getSlider(props) {
             .ticks(5)
             .tickFormat(d3.format('.0f'))
             .default([props.pointMin, props.pointMax])
-            .fill('#2196f3');
+            .fill('#ffbc21');
+//            .fill('#2196f3');
 }//getSlider
 
 function updateSlider(selection, props, data) {
@@ -88,11 +89,11 @@ function timeSlider(selection, data) {
         .transition()
         .attr('transform', 'translate(30,20)')
         .call(slider.width(width-2*30));
+    
 
     d3.select('p#value-range').text(
         slider
           .value()
           .map(d3.format('.0f'))
           .join(' - '));
-    console.log(slider.value())
 }//timeSlider
