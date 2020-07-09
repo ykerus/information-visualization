@@ -1,4 +1,8 @@
-# InfoVis
+This repository contains code for our visualization project for the course Information Visualization, given at the University of Amsterdam 2019-2020.
 
-The InfoVis project on the omniart dataset: http://isis-data.science.uva.nl/strezoski/omniart/omniart_v3/
-
+Authors:
+• Tessa Cramwinckel
+• Hannah Lim
+• Ewoud Vermeij
+• Rico Mossinkoff
+• Yke Rusticus
