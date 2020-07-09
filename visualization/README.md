@@ -1,11 +1,11 @@
 
 
-- how to use
+How to use:
 
-in terminal:
- $ python -m http.server
+in terminal: <br>
+ `python -m http.server` <br>
 (or run server any other way)
 
-in browser:
- > http://localhost:8000/
+in browser: <br>
+http://localhost:8000/
 
